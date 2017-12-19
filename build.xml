@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<project basedir="." default="jar" name="EmailCrawler">
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="EmailCrawler.classpath">
+        <pathelement location="bin"/>
+		<pathelement location="lib/commons-collections-3.2.1.jar"/>
+		<pathelement location="lib/commons-io-1.4.jar"/>
+		<pathelement location="lib/commons-lang3-3.4.jar"/>
+		<pathelement location="lib/jsoup-1.11.2.jar"/>
+		<pathelement location="lib/log4j-core-2.6.1.jar"/>
+		<pathelement location="lib/slf4j-api-1.7.21.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="EmailCrawler.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target depends="build" name="jar">
+        <jar destfile="EmailCrawler.jar">
+        <manifest>
+            <attribute name="Main-Class" value="com.testCase.crawler.CrawlerService"/>
+            <attribute name="Class-Path" value=". lib/commons-collections-3.2.1.jar lib/commons-io-1.4.jar lib/commons-lang3-3.4.jar lib/jsoup-1.11.2.jar lib/log4j-core-2.6.1.jar lib/slf4j-api-1.7.21.jar"/>
+        </manifest>
+	<fileset dir="bin"/>
+        </jar>
+    </target>
+</project>
+

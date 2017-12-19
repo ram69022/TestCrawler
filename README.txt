@@ -1,0 +1,7 @@
+-- the project contains src folder and the dependent libraries in lib folder
+-- ant script build.xml is in the folder which helps in building the jar file EmailCrawler.jar
+-- once the jar is created execute it to start the process of crawling
+-- in the project there is a CrawlConfig.properties file which has inputs for the followin details:
+-BaseURL (baseURL of the respostiory to crawl emails)
+-MailYear (year for which emails are to be downloaded for)
+-MailDownLoadDir ( location where the files are to be downloaded to)
